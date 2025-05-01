@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import './RequestHelp.css';
+import MapSelector from '../components/MapSelector';
 
 function RequestHelp() {
   const [formData, setFormData] = useState({
-    location: '',
     vehicleType: '',
     issueDescription: '',
   });
-
+  const [location, setLocation] = useState(null);
   const [submitted, setSubmitted] = useState(false);
 
   const handleChange = (e) => {
@@ -17,23 +17,28 @@ function RequestHelp() {
     }));
   };
 
+  const handleLocationSelect = (latlng) => {
+    setLocation(latlng);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (formData.location && formData.vehicleType && formData.issueDescription) {
+    if (location && formData.vehicleType && formData.issueDescription) {
+      // Here you would send the data to backend API including location coordinates
       alert('Your mechanic help request has been submitted. A mechanic will contact you shortly.');
-      setFormData({ location: '', vehicleType: '', issueDescription: '' });
+      setFormData({ vehicleType: '', issueDescription: '' });
+      setLocation(null);
       setSubmitted(true);
     } else {
-      alert('Please fill out all required fields.');
+      alert('Please fill out all required fields and select your location on the map.');
     }
   };
 
   return (
     <section className="request-help">
       <h2>Request Mechanic Help</h2>
+      <MapSelector onLocationSelect={handleLocationSelect} />
       <form onSubmit={handleSubmit} noValidate>
-        <label htmlFor="location">Location</label>
-        <input type="text" id="location" name="location" required placeholder="Your Location" value={formData.location} onChange={handleChange} />
         <label htmlFor="vehicleType">Vehicle Type</label>
         <input type="text" id="vehicleType" name="vehicleType" required placeholder="Car, Motorcycle, etc." value={formData.vehicleType} onChange={handleChange} />
         <label htmlFor="issueDescription">Issue Description</label>
