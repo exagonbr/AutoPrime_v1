@@ -2,17 +2,18 @@ const express = require('express');
 const cors = require('cors');
 const { verifyUserCredentials, users } = require('./users');
 const jwt = require('jsonwebtoken');
-const knex = require('knex');
+const knexConfig = require('./knexfile').development;
+const knex = require('knex')(knexConfig);
 const adminAuth = require('./middleware/adminAuth');
 const adminRoutes = require('./routes/admin');
-const knexConfig = require('./knexfile');
+const analyticsRoutes = require('./routes/analytics');
 
 const app = express();
 const PORT = 5000;
 const SECRET_KEY = process.env.JWT_SECRET || 'your_secret_key';
 
 // Database setup
-const db = knex(knexConfig.development);
+const db = knex;
 
 // Middleware
 app.use(cors({
@@ -58,6 +59,7 @@ app.post('/api/login', async (req, res) => {
 
 // Admin routes
 app.use('/api/admin', adminAuth, adminRoutes);
+app.use('/api/admin', adminAuth, analyticsRoutes);
 
 // Protected routes
 app.get('/api/mechanics', async (req, res) => {
