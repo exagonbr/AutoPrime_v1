@@ -18,7 +18,7 @@
     "recharts": "^2.15.3"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "set HTTPS=true&&set SSL_CRT_FILE=../backend/ssl/certificate.pem&&set SSL_KEY_FILE=../backend/ssl/private-key.pem&&react-scripts start",
     "build": "react-scripts build"
   },
   "browserslist": {
