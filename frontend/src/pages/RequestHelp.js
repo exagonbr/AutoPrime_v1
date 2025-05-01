@@ -8,7 +8,7 @@ function RequestHelp() {
     issueDescription: '',
   });
   const [location, setLocation] = useState(null);
-  const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
     setFormData(prev => ({
@@ -21,31 +21,105 @@ function RequestHelp() {
     setLocation(latlng);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (location && formData.vehicleType && formData.issueDescription) {
-      // Here you would send the data to backend API including location coordinates
-      alert('Your mechanic help request has been submitted. A mechanic will contact you shortly.');
+    
+    if (!location) {
+      alert('Please enable location services to continue.');
+      return;
+    }
+
+    if (!formData.vehicleType || !formData.issueDescription) {
+      alert('Please fill out all required fields.');
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      // Here you would send the data to backend API
+      await new Promise(resolve => setTimeout(resolve, 1500)); // Simulated API call
+      alert('Your request has been submitted. A mechanic will contact you shortly.');
       setFormData({ vehicleType: '', issueDescription: '' });
-      setLocation(null);
-      setSubmitted(true);
-    } else {
-      alert('Please fill out all required fields and select your location on the map.');
+    } catch (error) {
+      alert('Failed to submit request. Please try again.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   return (
-    <section className="request-help">
-      <h2>Request Mechanic Help</h2>
-      <MapSelector onLocationSelect={handleLocationSelect} />
-      <form onSubmit={handleSubmit} noValidate>
-        <label htmlFor="vehicleType">Vehicle Type</label>
-        <input type="text" id="vehicleType" name="vehicleType" required placeholder="Car, Motorcycle, etc." value={formData.vehicleType} onChange={handleChange} />
-        <label htmlFor="issueDescription">Issue Description</label>
-        <textarea id="issueDescription" name="issueDescription" required placeholder="Describe the issue" value={formData.issueDescription} onChange={handleChange}></textarea>
-        <button type="submit" className="btn-primary">Submit Request</button>
-      </form>
-    </section>
+    <div className="request-help-page">
+      <div className="request-help-container">
+        <div className="request-help-header">
+          <h1>Request Emergency Help</h1>
+          <p>We'll connect you with the nearest available mechanic</p>
+        </div>
+
+        <div className="request-help-content">
+          <div className="location-section">
+            <h2>Your Location</h2>
+            <p className="location-note">
+              For accurate service, we use your device's location. Please ensure location services are enabled.
+            </p>
+            <MapSelector onLocationSelect={handleLocationSelect} />
+          </div>
+
+          <form onSubmit={handleSubmit} className="request-form">
+            <div className="form-group">
+              <label htmlFor="vehicleType">
+                Vehicle Type <span className="required">*</span>
+              </label>
+              <input 
+                type="text" 
+                id="vehicleType" 
+                name="vehicleType" 
+                required 
+                placeholder="e.g., Toyota Camry, Honda CBR600" 
+                value={formData.vehicleType} 
+                onChange={handleChange}
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="issueDescription">
+                Issue Description <span className="required">*</span>
+              </label>
+              <textarea 
+                id="issueDescription" 
+                name="issueDescription" 
+                required 
+                placeholder="Please describe what's wrong with your vehicle..." 
+                value={formData.issueDescription} 
+                onChange={handleChange}
+                rows="4"
+              ></textarea>
+            </div>
+
+            <button 
+              type="submit" 
+              className={`submit-button ${isSubmitting ? 'submitting' : ''}`}
+              disabled={isSubmitting || !location}
+            >
+              {isSubmitting ? (
+                <>
+                  <span className="spinner"></span>
+                  Submitting...
+                </>
+              ) : (
+                'Request Emergency Help'
+              )}
+            </button>
+
+            {!location && (
+              <p className="location-warning">
+                Please enable location services to submit your request
+              </p>
+            )}
+          </form>
+        </div>
+      </div>
+    </div>
   );
 }
 

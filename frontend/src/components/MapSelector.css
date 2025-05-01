@@ -1,0 +1,168 @@
+.map-container {
+  position: relative;
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background: #f8f9fa;
+}
+
+.map-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.95);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 1rem;
+  border: 3px solid rgba(255, 68, 68, 0.1);
+  border-radius: 50%;
+  border-top-color: var(--secondary-color);
+  animation: spin 1s linear infinite;
+}
+
+.map-loading p {
+  background: var(--secondary-color);
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border-radius: 30px;
+  font-weight: 500;
+  animation: pulse 1.5s infinite;
+}
+
+.map-error {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.98);
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  z-index: 1000;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  width: 90%;
+  max-width: 400px;
+}
+
+.map-error p {
+  color: #ff4444;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.retry-button {
+  background: var(--secondary-color);
+  color: white;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 30px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.retry-button:hover {
+  background: #ff3333;
+  transform: translateY(-2px);
+}
+
+.map-help-text {
+  margin-top: 0.5rem;
+  color: #666;
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 0.8rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Location marker pulse effect */
+.location-pulse {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: var(--secondary-color);
+  border-radius: 50%;
+  animation: locationPulse 2s infinite;
+}
+
+@keyframes locationPulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  70% {
+    transform: scale(3);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.leaflet-container {
+  border-radius: 8px;
+  z-index: 1;
+  cursor: default !important; /* Prevent cursor changes on map */
+}
+
+/* Hide unnecessary controls */
+.leaflet-control-zoom,
+.leaflet-control-attribution {
+  display: none !important;
+}
+
+/* Custom marker styles */
+.leaflet-marker-icon {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+/* Prevent interaction with map elements */
+.leaflet-interactive {
+  pointer-events: none !important;
+}
+
+/* Make the map container non-interactive */
+.leaflet-container {
+  pointer-events: none !important;
+}
+
+/* Show pointer events only for error message and retry button */
+.map-error,
+.retry-button {
+  pointer-events: auto !important;
+}
