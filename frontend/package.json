@@ -3,10 +3,13 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+<<<<<<< HEAD
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^7.0.2",
     "@mui/material": "^7.0.2",
+=======
+>>>>>>> b4c6797 (Authentication)
     "axios": "^1.9.0",
     "leaflet": "^1.9.4",
     "leaflet-routing-machine": "^3.2.12",

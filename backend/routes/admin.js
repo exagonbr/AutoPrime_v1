@@ -9,7 +9,11 @@ router.get('/dashboard/stats', async (req, res) => {
       activeProviders: await req.db('service_providers').where('is_active', true).count('* as count').first(),
       totalTransactions: await req.db('service_transactions').count('* as count').first(),
       monthlyRevenue: await req.db('service_transactions')
+<<<<<<< HEAD
         .where('created_at', '>=', req.db.raw("date('now','start of month')"))
+=======
+        .where('created_at', '>=', req.db.raw('DATE_TRUNC(\'month\', CURRENT_DATE)'))
+>>>>>>> b4c6797 (Authentication)
         .sum('platform_fee as total')
         .first()
     };

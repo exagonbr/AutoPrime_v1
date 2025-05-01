@@ -1,4 +1,5 @@
 import React from 'react';
+<<<<<<< HEAD
 import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useRole } from '../contexts/RoleContext';
@@ -21,6 +22,26 @@ function PrivateRoute({ children, requiredRole }) {
   }
 
   // Render children if all checks pass
+=======
+import { Navigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
+
+function PrivateRoute({ children, requiredRole }) {
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return <div>Carregando...</div>;
+  }
+
+  if (!user) {
+    return <Navigate to="/login" />;
+  }
+
+  if (requiredRole && user.role !== requiredRole) {
+    return <Navigate to="/" />;
+  }
+
+>>>>>>> b4c6797 (Authentication)
   return children;
 }
 

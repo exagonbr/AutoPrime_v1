@@ -1,6 +1,7 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
+<<<<<<< HEAD
 import { RoleProvider } from './contexts/RoleContext';
 import PrivateRoute from './components/PrivateRoute';
 import Layout from './components/Layout/Layout';
@@ -10,6 +11,10 @@ import ProviderRoutes from './routes/ProviderRoutes';
 import ProfessionalRoutes from './routes/ProfessionalRoutes';
 =======
 >>>>>>> 4c537f1 (Everyt)
+=======
+import PrivateRoute from './components/PrivateRoute';
+import Layout from './components/Layout/Layout';
+>>>>>>> b4c6797 (Authentication)
 
 // Pages
 import Home from './pages/Home';
@@ -25,9 +30,15 @@ import MyRequests from './pages/MyRequests';
 =======
 >>>>>>> 4c537f1 (Everyt)
 
+// Admin Pages
+import Dashboard from './pages/admin/Dashboard';
+import Providers from './pages/admin/Providers';
+import Plans from './pages/admin/Plans';
+
 function App() {
   return (
     <AuthProvider>
+<<<<<<< HEAD
       <RoleProvider>
         <Layout>
           <Routes>
@@ -94,12 +105,50 @@ function App() {
             element={
               <PrivateRoute requiredRole="master">
                 <AdminRoutes />
+=======
+      <Layout>
+        <Routes>
+          {/* Public Routes */}
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/request-help" element={<RequestHelp />} />
+          <Route path="/mechanics" element={<Mechanics />} />
+          <Route path="/booking" element={<Booking />} />
+          <Route path="/login" element={<Login />} />
+
+          {/* Protected Admin Routes */}
+          <Route
+            path="/admin/dashboard"
+            element={
+              <PrivateRoute requiredRole="master">
+                <Dashboard />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/admin/providers"
+            element={
+              <PrivateRoute requiredRole="master">
+                <Providers />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/admin/plans"
+            element={
+              <PrivateRoute requiredRole="master">
+                <Plans />
+>>>>>>> b4c6797 (Authentication)
               </PrivateRoute>
             }
           />
         </Routes>
       </Layout>
+<<<<<<< HEAD
 >>>>>>> 4c537f1 (Everyt)
+=======
+>>>>>>> b4c6797 (Authentication)
     </AuthProvider>
   );
 }

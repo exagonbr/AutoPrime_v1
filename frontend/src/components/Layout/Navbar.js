@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { Link, useLocation } from 'react-router-dom';
 =======
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 >>>>>>> 4c537f1 (Everyt)
+=======
+import { Link, useNavigate } from 'react-router-dom';
+>>>>>>> b4c6797 (Authentication)
 import { useAuth } from '../../contexts/AuthContext';
 import './Navbar.css';
 
 function Navbar() {
+<<<<<<< HEAD
   const { user, logout } = useAuth();
 <<<<<<< HEAD
   const location = useLocation();
@@ -27,6 +32,12 @@ function Navbar() {
   // Check if current page is an admin page
   const isAdminPage = location.pathname.startsWith('/admin');
 >>>>>>> 4c537f1 (Everyt)
+=======
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+>>>>>>> b4c6797 (Authentication)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -76,6 +87,12 @@ function Navbar() {
     if (user?.role === 'master') return adminLinks;
     if (user?.role === 'provider') return providerLinks;
     return publicLinks;
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+    setIsMobileMenuOpen(false);
   };
 
   return (
@@ -164,6 +181,7 @@ function Navbar() {
         ) : (
           <Link to="/login" className="login-button" onClick={() => setIsMobileMenuOpen(false)}>
             ENTRAR
+<<<<<<< HEAD
 >>>>>>> 4c537f1 (Everyt)
           </Link>
 
@@ -199,6 +217,11 @@ function Navbar() {
           </div>
         </div>
       )}
+=======
+          </Link>
+        )}
+      </div>
+>>>>>>> b4c6797 (Authentication)
     </nav>
   );
 }
