@@ -5,11 +5,11 @@ import './Footer.css';
 function Footer() {
   return (
     <footer className="footer">
-      <div className="container">
-        <div className="footer-grid">
+      <div className="footer-container">
+        <div className="footer-content">
           <div className="footer-section">
-            <h3 className="footer-logo">AutoPrime</h3>
-            <p>Your trusted partner for professional auto repair and maintenance services. Available 24/7 for all your vehicle needs.</p>
+            <h3>AutoPrime</h3>
+            <p>Your trusted auto service partner. Professional mechanics at your service 24/7.</p>
             <div className="social-links">
               <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
                 <i className="fab fa-facebook"></i>
@@ -20,31 +20,26 @@ function Footer() {
               <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
                 <i className="fab fa-instagram"></i>
               </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
-                <i className="fab fa-linkedin"></i>
-              </a>
             </div>
           </div>
 
           <div className="footer-section">
             <h4>Quick Links</h4>
             <ul>
-              <li><Link to="/">Home</Link></li>
               <li><Link to="/about">About Us</Link></li>
-              <li><Link to="/services">Services</Link></li>
               <li><Link to="/mechanics">Our Mechanics</Link></li>
-              <li><Link to="/contact">Contact</Link></li>
+              <li><Link to="/booking">Book Service</Link></li>
+              <li><Link to="/contact">Contact Us</Link></li>
             </ul>
           </div>
 
           <div className="footer-section">
             <h4>Services</h4>
             <ul>
-              <li><Link to="/services#emergency">Emergency Repairs</Link></li>
-              <li><Link to="/services#maintenance">Routine Maintenance</Link></li>
-              <li><Link to="/services#diagnostics">Diagnostics</Link></li>
-              <li><Link to="/services#custom">Custom Solutions</Link></li>
-              <li><Link to="/booking">Book a Service</Link></li>
+              <li><Link to="/services">Emergency Repairs</Link></li>
+              <li><Link to="/services">Routine Maintenance</Link></li>
+              <li><Link to="/services">Diagnostics</Link></li>
+              <li><Link to="/services">Custom Solutions</Link></li>
             </ul>
           </div>
 
@@ -52,20 +47,16 @@ function Footer() {
             <h4>Contact Info</h4>
             <ul className="contact-info">
               <li>
-                <i className="fas fa-map-marker-alt"></i>
-                123 Auto Street, City, Country
-              </li>
-              <li>
                 <i className="fas fa-phone"></i>
-                <a href="tel:+1234567890">+1 (234) 567-890</a>
+                <span>+1 234 567 8900</span>
               </li>
               <li>
                 <i className="fas fa-envelope"></i>
-                <a href="mailto:info@autoprime.com">info@autoprime.com</a>
+                <span>contact@autoprime.com</span>
               </li>
               <li>
-                <i className="fas fa-clock"></i>
-                24/7 Emergency Service
+                <i className="fas fa-map-marker-alt"></i>
+                <span>123 Service Street, Auto City, AC 12345</span>
               </li>
             </ul>
           </div>
