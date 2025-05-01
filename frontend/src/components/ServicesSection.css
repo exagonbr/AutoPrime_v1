@@ -1,0 +1,73 @@
+.services-section {
+  padding: 4rem 2rem;
+  background-color: #1e1e1e;
+  color: #ccc;
+  text-align: center;
+}
+
+.services-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.services-cards {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.service-card {
+  background: #2a2a2a;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.7);
+  max-width: 300px;
+  padding-bottom: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: #ccc;
+}
+
+.service-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.9);
+}
+
+.service-card img {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  height: 180px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.service-card h3 {
+  margin: 1rem 0 0.5rem;
+  font-size: 1.5rem;
+  color: #1db954;
+}
+
+.service-card p {
+  padding: 0 1rem;
+  font-size: 1rem;
+  color: #bbb;
+}
+
+.btn-secondary {
+  display: inline-block;
+  margin-top: 1rem;
+  background-color: transparent;
+  border: 2px solid #1db954;
+  color: #1db954;
+  padding: 0.5rem 1.5rem;
+  border-radius: 30px;
+  font-size: 1rem;
+  cursor: not-allowed;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #1db954;
+  color: #000;
+}
