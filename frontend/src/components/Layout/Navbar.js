@@ -1,77 +1,110 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
+import { useRole, ROLES } from '../../contexts/RoleContext';
 import './Navbar.css';
 
-function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
+function Navbar({ className }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { user, logout } = useAuth();
-  const navigate = useNavigate();
   const location = useLocation();
-  
-  // Check if current page is an admin page
-  const isAdminPage = location.pathname.startsWith('/admin');
+  const navigate = useNavigate();
+  const { user, logout } = useAuth();
+  const { userRole } = useRole();
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
+  const isLoggedIn = !!user;
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+    setIsMobileMenuOpen(false);
+  };
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  const handleLogout = () => {
-    logout();
-    navigate('/');
+  const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
   };
 
+  const getNavLinks = () => {
+    if (!isLoggedIn) {
+      return (
+        <>
+          <Link to="/about" onClick={closeMobileMenu}>Sobre</Link>
+          <Link to="/services" onClick={closeMobileMenu}>Serviços</Link>
+          <Link to="/request-help" onClick={closeMobileMenu}>Solicitar Ajuda</Link>
+          <Link to="/contact" onClick={closeMobileMenu}>Contato</Link>
+          <Link to="/login" className="login-button" onClick={closeMobileMenu}>Login</Link>
+        </>
+      );
+    }
+
+    switch (userRole) {
+      case ROLES.MASTER:
+        return (
+          <>
+            <Link to="/admin/dashboard" onClick={closeMobileMenu}>Dashboard</Link>
+            <Link to="/admin/providers" onClick={closeMobileMenu}>Prestadores</Link>
+            <Link to="/admin/plans" onClick={closeMobileMenu}>Planos</Link>
+            <Link to="/admin/categories" onClick={closeMobileMenu}>Categorias</Link>
+            <button onClick={handleLogout} className="login-button">Logout</button>
+          </>
+        );
+      case ROLES.PROVIDER:
+        return (
+          <>
+            <Link to="/provider" onClick={closeMobileMenu}>Dashboard</Link>
+            <Link to="/provider/professionals" onClick={closeMobileMenu}>Profissionais</Link>
+            <Link to="/provider/requests" onClick={closeMobileMenu}>Solicitações</Link>
+            <Link to="/provider/analytics" onClick={closeMobileMenu}>Analytics</Link>
+            <button onClick={handleLogout} className="login-button">Logout</button>
+          </>
+        );
+      case ROLES.PROFESSIONAL:
+        return (
+          <>
+            <Link to="/professional" onClick={closeMobileMenu}>Dashboard</Link>
+            <Link to="/professional/requests" onClick={closeMobileMenu}>Solicitações</Link>
+            <Link to="/professional/schedule" onClick={closeMobileMenu}>Agenda</Link>
+            <Link to="/professional/profile" onClick={closeMobileMenu}>Perfil</Link>
+            <button onClick={handleLogout} className="login-button">Logout</button>
+          </>
+        );
+      default:
+        return (
+          <>
+            <Link to="/request-help" onClick={closeMobileMenu}>Solicitar Ajuda</Link>
+            <Link to="/my-requests" onClick={closeMobileMenu}>Minhas Solicitações</Link>
+            <Link to="/profile" onClick={closeMobileMenu}>Perfil</Link>
+            <button onClick={handleLogout} className="login-button">Logout</button>
+          </>
+        );
+    }
+  };
+
   return (
-    <nav className={`navbar ${isScrolled ? 'scrolled' : ''} ${isMobileMenuOpen ? 'mobile-open' : ''} ${isAdminPage ? 'white-bg' : ''}`}>
+    <nav className={`navbar ${className} ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
       <div className="navbar-container">
-        <Link to="/" className="navbar-logo">
+        <Link 
+          to={isLoggedIn ? getDashboardLink() : '/'} 
+          className="navbar-logo"
+          onClick={closeMobileMenu}
+        >
           AutoPrime
         </Link>
-
-        <button className="mobile-menu-button" onClick={toggleMobileMenu}>
+        
+        <button 
+          className="mobile-menu-button" 
+          onClick={toggleMobileMenu}
+          aria-label="Toggle menu"
+        >
           <span className="menu-icon"></span>
         </button>
 
         <div className={`navbar-links ${isMobileMenuOpen ? 'active' : ''}`}>
-          {user?.role === 'master' ? (
-            <>
-              <Link to="/admin/providers" onClick={() => setIsMobileMenuOpen(false)}>Prestadores</Link>
-              <Link to="/admin/plans" onClick={() => setIsMobileMenuOpen(false)}>Planos</Link>
-              <Link to="/admin/categories" onClick={() => setIsMobileMenuOpen(false)}>Categorias</Link>
-              <Link to="/admin/transactions" onClick={() => setIsMobileMenuOpen(false)}>Transações</Link>
-            </>
-          ) : (
-            <>
-              <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>Início</Link>
-              <Link to="/mechanics" onClick={() => setIsMobileMenuOpen(false)}>Mecânicos</Link>
-              <Link to="/request-help" onClick={() => setIsMobileMenuOpen(false)}>Solicitar Ajuda</Link>
-              <Link to="/booking" onClick={() => setIsMobileMenuOpen(false)}>Agendamento</Link>
-              <Link to="/about" onClick={() => setIsMobileMenuOpen(false)}>Sobre</Link>
-              <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>Contato</Link>
-            </>
-          )}
+          {getNavLinks()}
         </div>
-
-        {user ? (
-          <button onClick={handleLogout} className="login-button">
-            SAIR
-          </button>
-        ) : (
-          <Link to="/login" className="login-button" onClick={() => setIsMobileMenuOpen(false)}>
-            ENTRAR
-          </Link>
-        )}
       </div>
     </nav>
   );
