@@ -1,32 +1,14 @@
 const express = require('express');
-const https = require('https');
-const fs = require('fs');
-const path = require('path');
+const knex = require('knex');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
-<<<<<<< HEAD
+const adminAuth = require('./middleware/adminAuth');
+const adminRoutes = require('./routes/admin');
+const knexConfig = require('./knexfile');
 const { verifyUserCredentials } = require('./users');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-
-// SSL configuration
-const sslOptions = {
-  key: fs.readFileSync(path.join(__dirname, 'ssl', 'private-key.pem')),
-  cert: fs.readFileSync(path.join(__dirname, 'ssl', 'certificate.pem')),
-  requestCert: false,
-  rejectUnauthorized: false // Accept self-signed certificates
-};
-
-// Middleware
-=======
-const knex = require('knex');
-const adminAuth = require('./middleware/adminAuth');
-const adminRoutes = require('./routes/admin');
-const knexConfig = require('./knexfile');
-
-const app = express();
-const PORT = 5000;
 const SECRET_KEY = process.env.JWT_SECRET || 'your_secret_key';
 
 // Database setup
@@ -34,22 +16,11 @@ const db = knex(knexConfig.development);
 
 // Middleware
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:3001'],
+  origin: 'http://localhost:3000',
   credentials: true
 }));
->>>>>>> b4c6797 (Authentication)
 app.use(express.json());
-app.use(cors({
-  origin: ['http://localhost:3000', 'https://localhost:3000'],
-  credentials: true
-}));
 
-<<<<<<< HEAD
-// JWT secret key
-const JWT_SECRET = 'your-secret-key'; // In production, use environment variable
-
-// Login endpoint
-=======
 // Add database instance to request
 app.use((req, res, next) => {
   req.db = db;
@@ -63,9 +34,7 @@ const authenticate = (req, res, next) => {
   const token = authHeader.split(' ')[1];
   try {
     const decoded = jwt.verify(token, SECRET_KEY);
-    const user = users.find(u => u.id === decoded.id);
-    if (!user) return res.status(401).json({ error: 'Unauthorized' });
-    req.user = user;
+    req.user = decoded;
     next();
   } catch (err) {
     return res.status(401).json({ error: 'Unauthorized' });
@@ -73,7 +42,6 @@ const authenticate = (req, res, next) => {
 };
 
 // Login route
->>>>>>> b4c6797 (Authentication)
 app.post('/api/login', async (req, res) => {
   const { username, password } = req.body;
 
@@ -82,7 +50,7 @@ app.post('/api/login', async (req, res) => {
     if (user) {
       const token = jwt.sign(
         { id: user.id, role: user.role },
-        JWT_SECRET,
+        SECRET_KEY,
         { expiresIn: '1h' }
       );
       res.json({ token, role: user.role });
@@ -95,38 +63,11 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
-<<<<<<< HEAD
-// Protected route example
-app.get('/api/protected', authenticateToken, (req, res) => {
-  res.json({ message: 'This is a protected route', user: req.user });
-});
-
-// Middleware to authenticate JWT
-function authenticateToken(req, res, next) {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
-
-  if (!token) {
-    return res.status(401).json({ error: 'Authentication required' });
-  }
-
-  jwt.verify(token, JWT_SECRET, (err, user) => {
-    if (err) {
-      return res.status(403).json({ error: 'Invalid or expired token' });
-    }
-    req.user = user;
-    next();
-  });
-}
-
-// Create HTTPS server
-const server = https.createServer(sslOptions, app);
-=======
 // Admin routes
 app.use('/api/admin', adminAuth, adminRoutes);
 
 // Protected routes
-app.get('/api/mechanics', async (req, res) => {
+app.get('/api/mechanics', authenticate, async (req, res) => {
   try {
     const mechanics = await db('service_providers')
       .where('is_active', true)
@@ -138,7 +79,7 @@ app.get('/api/mechanics', async (req, res) => {
 });
 
 // Create a booking
-app.post('/api/bookings', async (req, res) => {
+app.post('/api/bookings', authenticate, async (req, res) => {
   const { mechanicId, date, time } = req.body;
   if (!mechanicId || !date || !time) {
     return res.status(400).json({ error: 'Missing required fields' });
@@ -172,7 +113,7 @@ app.post('/api/contact', async (req, res) => {
 });
 
 // Submit mechanic help request
-app.post('/api/request-help', async (req, res) => {
+app.post('/api/request-help', authenticate, async (req, res) => {
   const { location, vehicleType, issueDescription } = req.body;
   if (
     !location ||
@@ -203,8 +144,8 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ error: 'Something broke!' });
 });
->>>>>>> b4c6797 (Authentication)
 
-server.listen(PORT, () => {
-  console.log(`Server running on https://localhost:${PORT}`);
+// Start HTTP server
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
 });

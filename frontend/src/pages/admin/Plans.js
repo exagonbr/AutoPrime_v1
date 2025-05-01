@@ -1,24 +1,12 @@
 import React, { useState, useEffect } from 'react';
-<<<<<<< HEAD
-import api from '../../services/api';
-import './Admin.css';
-=======
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import api from '../../services/api';
 import './Plans.css';
->>>>>>> b4c6797 (Authentication)
 
 function Plans() {
   const [plans, setPlans] = useState([]);
   const [loading, setLoading] = useState(true);
-<<<<<<< HEAD
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    loadPlans();
-  }, []);
-=======
   const [selectedPlan, setSelectedPlan] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
@@ -43,29 +31,18 @@ function Plans() {
     }
     loadPlans();
   }, [user, navigate]);
->>>>>>> b4c6797 (Authentication)
 
   const loadPlans = async () => {
     try {
       const response = await api.get('/api/admin/plans');
       setPlans(response.data);
-<<<<<<< HEAD
-      setError(null);
-    } catch (err) {
-      setError('Erro ao carregar planos');
-      console.error('Error loading plans:', err);
-=======
     } catch (error) {
       console.error('Erro ao carregar planos:', error);
->>>>>>> b4c6797 (Authentication)
     } finally {
       setLoading(false);
     }
   };
 
-<<<<<<< HEAD
-  const togglePlanStatus = async (planId, currentStatus) => {
-=======
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     if (name.startsWith('features.')) {
@@ -121,66 +98,11 @@ function Plans() {
   };
 
   const handleToggleStatus = async (planId, currentStatus) => {
->>>>>>> b4c6797 (Authentication)
     try {
       await api.patch(`/api/admin/plans/${planId}/toggle-status`, {
         is_active: !currentStatus
       });
       loadPlans();
-<<<<<<< HEAD
-    } catch (err) {
-      setError('Erro ao atualizar status do plano');
-      console.error('Error updating plan status:', err);
-    }
-  };
-
-  if (loading) return <div className="loading">Carregando...</div>;
-  if (error) return <div className="error">{error}</div>;
-
-  return (
-    <div className="admin-page">
-      <div className="admin-header">
-        <h1>Gerenciar Planos</h1>
-        <button className="btn btn-primary">Adicionar Plano</button>
-      </div>
-
-      <div className="admin-content">
-        <div className="table-responsive">
-          <table className="admin-table">
-            <thead>
-              <tr>
-                <th>Nome</th>
-                <th>Descrição</th>
-                <th>Valor Mensal</th>
-                <th>Status</th>
-                <th>Ações</th>
-              </tr>
-            </thead>
-            <tbody>
-              {plans.map(plan => (
-                <tr key={plan.id}>
-                  <td>{plan.name}</td>
-                  <td>{plan.description}</td>
-                  <td>R$ {plan.monthly_fee.toFixed(2)}</td>
-                  <td>
-                    <span className={`status-badge ${plan.is_active ? 'active' : 'inactive'}`}>
-                      {plan.is_active ? 'Ativo' : 'Inativo'}
-                    </span>
-                  </td>
-                  <td>
-                    <button 
-                      className="btn btn-icon"
-                      onClick={() => togglePlanStatus(plan.id, plan.is_active)}
-                    >
-                      {plan.is_active ? 'Desativar' : 'Ativar'}
-                    </button>
-                    <button className="btn btn-icon">Editar</button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-=======
     } catch (error) {
       console.error('Erro ao alterar status:', error);
       alert('Erro ao alterar status do plano.');
@@ -366,7 +288,6 @@ function Plans() {
               </tbody>
             </table>
           </div>
->>>>>>> b4c6797 (Authentication)
         </div>
       </div>
     </div>

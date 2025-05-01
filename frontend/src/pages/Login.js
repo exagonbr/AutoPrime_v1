@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import './Login.css';
 
 function Login() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { login } = useAuth();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -24,15 +25,22 @@ function Login() {
     try {
       const result = await login(username, password);
       if (result.success) {
-<<<<<<< HEAD
-        if (result.role === 'master') {
-          navigate('/admin/dashboard');
-        } else {
-          navigate('/');
+        // Navigate based on user role
+        switch (result.role) {
+          case 'master':
+            navigate('/admin/dashboard');
+            break;
+          case 'provider':
+            navigate('/provider/dashboard');
+            break;
+          case 'professional':
+            navigate('/professional/dashboard');
+            break;
+          default:
+            // Navigate to the page user tried to access, or home
+            const from = location.state?.from?.pathname || '/';
+            navigate(from);
         }
-=======
-        navigate('/');
->>>>>>> b4c6797 (Authentication)
       } else {
         setError(result.error);
       }

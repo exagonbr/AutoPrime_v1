@@ -2,10 +2,11 @@
   min-height: 100vh;
   display: flex;
   align-items: center;
-<<<<<<< HEAD
   justify-content: center;
   position: relative;
   background-color: var(--bg-dark);
+  overflow: hidden;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .login-video {
@@ -25,57 +26,21 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: var(--bg-dark);
-  opacity: 0.7;
+  background: rgba(0, 0, 0, 0.7);
   z-index: 2;
-=======
-  height: 100vh;
-  position: relative;
-  overflow: hidden;
-  font-family: 'Montserrat', sans-serif;
->>>>>>> b4c6797 (Authentication)
-}
-
-.login-video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 0;
-}
-
-.login-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  z-index: 1;
 }
 
 .login-form {
   position: relative;
-<<<<<<< HEAD
   z-index: 3;
   width: 100%;
   max-width: 400px;
   padding: var(--spacing-2xl);
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(0, 0, 0, 0.85);
   backdrop-filter: blur(10px);
   border-radius: var(--radius-lg);
   color: var(--text-light);
-=======
-  z-index: 2;
-  background-color: rgba(0, 0, 0, 0.85);
-  padding: 2rem;
-  border-radius: 8px;
-  width: 320px;
-  color: #b30000;
   box-shadow: 0 0 15px rgba(179, 0, 0, 0.7);
->>>>>>> b4c6797 (Authentication)
 }
 
 .login-form h2 {
