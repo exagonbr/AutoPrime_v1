@@ -16,16 +16,23 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-// Add response interceptor to handle SSL certificate errors in development
-api.interceptors.request.use((config) => {
-  if (process.env.NODE_ENV === 'development') {
-    config.httpsAgent = new axios.create().httpsAgent;
-    config.httpsAgent.options = {
-      ...config.httpsAgent.options,
-      rejectUnauthorized: false // Allow self-signed certificates in development
-    };
+// Add response interceptor to handle errors
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response) {
+      // Handle specific error cases
+      switch (error.response.status) {
+        case 401:
+          localStorage.removeItem('token');
+          window.location.href = '/login';
+          break;
+        default:
+          break;
+      }
+    }
+    return Promise.reject(error);
   }
-  return config;
-});
+);
 
 export default api;

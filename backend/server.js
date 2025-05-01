@@ -1,12 +1,9 @@
 const express = require('express');
 const cors = require('cors');
-const https = require('https');
-const fs = require('fs');
-const path = require('path');
-const { verifyUserCredentials, users } = require('./users');
-const jwt = require('jsonwebtoken');
 const knexConfig = require('./knexfile').development;
 const knex = require('knex')(knexConfig);
+const { verifyUserCredentials, users } = require('./users');
+const jwt = require('jsonwebtoken');
 const adminAuth = require('./middleware/adminAuth');
 const adminRoutes = require('./routes/admin');
 const analyticsRoutes = require('./routes/analytics');
@@ -15,18 +12,12 @@ const app = express();
 const PORT = 5000;
 const SECRET_KEY = process.env.JWT_SECRET || 'your_secret_key';
 
-// SSL configuration
-const sslOptions = {
-  key: fs.readFileSync(path.join(__dirname, 'ssl', 'private-key.pem')),
-  cert: fs.readFileSync(path.join(__dirname, 'ssl', 'certificate.pem'))
-};
-
 // Database setup
 const db = knex;
 
 // Middleware
 app.use(cors({
-  origin: ['https://localhost:3000', 'https://localhost:3001'],
+  origin: ['http://localhost:3000', 'http://localhost:3001'],
   credentials: true
 }));
 app.use(express.json());
@@ -149,9 +140,7 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Something broke!' });
 });
 
-// Create HTTPS server
-const server = https.createServer(sslOptions, app);
-
-server.listen(PORT, () => {
-  console.log(`Server running on https://localhost:${PORT}`);
+// Start server
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
 });
