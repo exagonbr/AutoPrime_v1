@@ -1,22 +1,26 @@
 import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { useRole } from '../contexts/RoleContext';
 
 function PrivateRoute({ children, requiredRole }) {
-  const { user, loading } = useAuth();
+  const { user } = useAuth();
+  const { hasRole } = useRole();
+  const location = useLocation();
 
-  if (loading) {
-    return <div>Carregando...</div>;
-  }
-
+  // Check if user is authenticated
   if (!user) {
-    return <Navigate to="/login" />;
+    // Redirect to login page with return url
+    return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  if (requiredRole && user.role !== requiredRole) {
-    return <Navigate to="/" />;
+  // If requiredRole is specified, check if user has the required role
+  if (requiredRole && !hasRole(requiredRole)) {
+    // Redirect to home page if user doesn't have required role
+    return <Navigate to="/" replace />;
   }
 
+  // Render children if all checks pass
   return children;
 }
 

@@ -1,3 +1,4 @@
+/* Base Layout */
 .app-layout {
   min-height: 100vh;
   display: flex;
@@ -5,22 +6,51 @@
   background-color: var(--bg-secondary);
 }
 
+/* Main Content */
 .main-content {
   flex: 1;
   width: 100%;
-  padding-bottom: var(--spacing-2xl);
+  padding-top: 64px; /* Height of top navbar */
 }
 
-.main-content.auth-content {
-  background-color: var(--bg-secondary);
+/* Home Layout */
+.home-layout {
+  background-color: var(--bg-primary);
 }
 
+.home-content {
+  padding-top: 0; /* Remove padding for transparent navbar */
+}
+
+/* Auth Layout */
+.auth-layout {
+  display: flex;
+}
+
+.auth-layout .main-content {
+  margin-left: 240px; /* Width of expanded sidebar */
+  padding-top: 0;
+  transition: margin-left var(--transition-normal);
+}
+
+.auth-layout .navbar-side-content.collapsed + .main-content {
+  margin-left: 64px; /* Width of collapsed sidebar */
+}
+
+/* Login Layout */
+.login-content {
+  padding-top: 0;
+  min-height: 100vh;
+}
+
+/* Page Container */
 .page-container {
   max-width: 1280px;
   margin: 0 auto;
   padding: var(--spacing-xl) var(--spacing-md);
 }
 
+/* Page Header */
 .page-header {
   margin-bottom: var(--spacing-2xl);
   text-align: center;
@@ -40,6 +70,7 @@
   margin: 0 auto;
 }
 
+/* Section Styles */
 .section {
   margin-bottom: var(--spacing-3xl);
 }
@@ -63,48 +94,15 @@
   margin: 0 auto;
 }
 
-.grid-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: var(--spacing-lg);
-}
-
-.card {
-  background-color: var(--bg-primary);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
-  padding: var(--spacing-lg);
-  transition: transform var(--transition-normal);
-}
-
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
-}
-
-.gradient-bg {
-  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-  color: var(--text-light);
-}
-
-.gradient-text {
-  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: transparent;
-}
-
+/* Hero Section */
 .hero-section {
   position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: var(--spacing-3xl) 0;
-  background: 
-    linear-gradient(135deg, var(--primary-color), var(--primary-dark)),
-    linear-gradient(45deg, rgba(255,255,255,0.05) 25%, transparent 25%) 0 0,
-    linear-gradient(-45deg, rgba(255,255,255,0.05) 25%, transparent 25%) 0 0,
-    linear-gradient(45deg, transparent 75%, rgba(255,255,255,0.05) 75%) 0 0,
-    linear-gradient(-45deg, transparent 75%, rgba(255,255,255,0.05) 75%) 0 0;
-  background-size: 100% 100%, 20px 20px, 20px 20px, 20px 20px, 20px 20px;
+  background-color: var(--primary-color);
   color: var(--text-light);
   text-align: center;
   overflow: hidden;
@@ -166,26 +164,39 @@
   transform: translateY(-2px);
 }
 
+/* Dashboard Layout */
+.dashboard-container {
+  padding: var(--spacing-lg);
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+/* Card Styles */
+.card {
+  background-color: var(--bg-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-lg);
+  transition: transform var(--transition-normal);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
   .page-container {
     padding: var(--spacing-lg) var(--spacing-md);
   }
 
-  .page-header h1 {
-    font-size: var(--text-3xl);
-  }
-
-  .section-header h2 {
-    font-size: var(--text-2xl);
-  }
-
-  .hero-title {
-    font-size: var(--text-4xl);
-  }
-
-  .hero-description {
-    font-size: var(--text-lg);
+  .auth-layout .main-content {
+    margin-left: 0;
   }
 }
 
@@ -194,13 +205,13 @@
     padding: var(--spacing-lg) var(--spacing-sm);
   }
 
-  .grid-container {
-    grid-template-columns: 1fr;
-  }
-
   .page-header,
   .section-header {
     text-align: left;
+  }
+
+  .hero-section {
+    min-height: calc(100vh - 64px);
   }
 
   .hero-buttons {
@@ -213,24 +224,11 @@
 }
 
 @media (max-width: 480px) {
-  .page-header h1 {
-    font-size: var(--text-2xl);
+  .dashboard-container {
+    padding: var(--spacing-md);
   }
 
-  .section-header h2 {
-    font-size: var(--text-xl);
-  }
-
-  .page-header p,
-  .section-header p {
-    font-size: var(--text-base);
-  }
-
-  .hero-title {
-    font-size: var(--text-3xl);
-  }
-
-  .hero-description {
-    font-size: var(--text-base);
+  .dashboard-grid {
+    grid-template-columns: 1fr;
   }
 }

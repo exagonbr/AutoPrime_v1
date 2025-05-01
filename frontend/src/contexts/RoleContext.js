@@ -1,48 +1,48 @@
-import React, { createContext, useContext } from 'react';
+import React, { createContext, useContext, useState, useCallback } from 'react';
 import { useAuth } from './AuthContext';
 
-const RoleContext = createContext();
-
-export const ROLES = {
-  MASTER: 'master',
-  PROVIDER: 'provider',
-  PROFESSIONAL: 'professional'
-};
-
-export const ROLE_PERMISSIONS = {
-  [ROLES.MASTER]: {
-    routes: ['/admin/*'],
-    capabilities: ['manage_providers', 'manage_plans', 'view_analytics', 'manage_categories']
-  },
-  [ROLES.PROVIDER]: {
-    routes: ['/provider/*'],
-    capabilities: ['manage_professionals', 'view_provider_analytics', 'manage_services']
-  },
-  [ROLES.PROFESSIONAL]: {
-    routes: ['/professional/*'],
-    capabilities: ['view_schedule', 'manage_profile', 'view_earnings']
-  }
-};
+const RoleContext = createContext({});
 
 export function RoleProvider({ children }) {
   const { user } = useAuth();
+  const [currentRole, setCurrentRole] = useState(user?.role || null);
 
-  const hasPermission = (capability) => {
-    if (!user || !user.role) return false;
-    return ROLE_PERMISSIONS[user.role]?.capabilities.includes(capability);
-  };
+  const hasRole = useCallback((requiredRole) => {
+    if (!currentRole) return false;
+    
+    // Master role has access to everything
+    if (currentRole === 'master') return true;
+    
+    // Check if current role matches required role
+    return currentRole === requiredRole;
+  }, [currentRole]);
 
-  const hasRouteAccess = (path) => {
-    if (!user || !user.role) return false;
-    const allowedRoutes = ROLE_PERMISSIONS[user.role]?.routes || [];
-    return allowedRoutes.some(route => {
-      const routeRegex = new RegExp('^' + route.replace('*', '.*') + '$');
-      return routeRegex.test(path);
-    });
-  };
+  const getRoleBasePath = useCallback(() => {
+    switch (currentRole) {
+      case 'master':
+        return '/admin';
+      case 'provider':
+        return '/provider';
+      case 'professional':
+        return '/professional';
+      default:
+        return '/';
+    }
+  }, [currentRole]);
+
+  const updateRole = useCallback((newRole) => {
+    setCurrentRole(newRole);
+  }, []);
 
   return (
-    <RoleContext.Provider value={{ hasPermission, hasRouteAccess, userRole: user?.role }}>
+    <RoleContext.Provider 
+      value={{ 
+        currentRole, 
+        hasRole, 
+        getRoleBasePath,
+        updateRole 
+      }}
+    >
       {children}
     </RoleContext.Provider>
   );
@@ -50,8 +50,10 @@ export function RoleProvider({ children }) {
 
 export function useRole() {
   const context = useContext(RoleContext);
+
   if (!context) {
     throw new Error('useRole must be used within a RoleProvider');
   }
+
   return context;
 }

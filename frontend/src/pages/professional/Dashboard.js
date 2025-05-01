@@ -1,117 +1,118 @@
-admin/providersimport React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../contexts/AuthContext';
+import React, { useState, useEffect } from 'react';
 import api from '../../services/api';
-import '../../styles/Dashboard.css';
+import './Dashboard.css';
 
-function ProfessionalDashboard() {
+function Dashboard() {
   const [stats, setStats] = useState({
     totalServices: 0,
     completedServices: 0,
     pendingServices: 0,
     monthlyEarnings: 0,
-    upcomingAppointments: []
+    upcomingServices: []
   });
   const [loading, setLoading] = useState(true);
-  const { user } = useAuth();
-  const navigate = useNavigate();
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (user?.role !== 'professional') {
-      navigate('/login');
-      return;
-    }
-
     loadDashboardData();
-  }, [user, navigate]);
+  }, []);
 
   const loadDashboardData = async () => {
     try {
       const response = await api.get('/api/professional/dashboard/stats');
       setStats(response.data);
     } catch (error) {
-      console.error('Error loading professional dashboard data:', error);
+      console.error('Error loading dashboard data:', error);
+      setError('Erro ao carregar dados do dashboard');
     } finally {
       setLoading(false);
     }
   };
 
   if (loading) {
-    return (
-      <div className="dashboard">
-        <div className="dashboard-header">
-          <h1>Loading dashboard...</h1>
-        </div>
-      </div>
-    );
+    return <div className="loading">Carregando...</div>;
+  }
+
+  if (error) {
+    return <div className="error-message">{error}</div>;
   }
 
   return (
-    <div className="dashboard">
-      <div className="dashboard-header">
-        <h1>Professional Dashboard</h1>
-      </div>
+    <div className="dashboard-container">
+      <h1>Dashboard do Profissional</h1>
       
-      <div className="dashboard-content">
-        <div className="stats-overview">
-          <div className="stat-card">
-            <h3>Total Services</h3>
-            <div className="stat-value">{stats.totalServices}</div>
-          </div>
-          <div className="stat-card">
-            <h3>Completed Services</h3>
-            <div className="stat-value">{stats.completedServices}</div>
-          </div>
-          <div className="stat-card">
-            <h3>Pending Services</h3>
-            <div className="stat-value">{stats.pendingServices}</div>
-          </div>
-          <div className="stat-card">
-            <h3>Monthly Earnings</h3>
-            <div className="stat-value">
-              R$ {stats.monthlyEarnings.toFixed(2)}
+      <div className="stats-grid">
+        <div className="stat-card">
+          <h3>Serviços</h3>
+          <div className="stat-numbers">
+            <div>
+              <span className="stat-value">{stats.totalServices}</span>
+              <span className="stat-label">Total</span>
+            </div>
+            <div>
+              <span className="stat-value">{stats.completedServices}</span>
+              <span className="stat-label">Concluídos</span>
+            </div>
+            <div>
+              <span className="stat-value">{stats.pendingServices}</span>
+              <span className="stat-label">Pendentes</span>
             </div>
           </div>
         </div>
 
-        <div className="upcoming-appointments">
-          <h2>Upcoming Appointments</h2>
-          {stats.upcomingAppointments.length > 0 ? (
-            <div className="appointments-list">
-              {stats.upcomingAppointments.map((appointment, index) => (
-                <div key={index} className="appointment-card">
-                  <div className="appointment-time">
-                    {new Date(appointment.datetime).toLocaleString()}
-                  </div>
-                  <div className="appointment-details">
-                    <h4>{appointment.serviceType}</h4>
-                    <p>{appointment.location}</p>
-                  </div>
-                  <div className="appointment-status">
-                    {appointment.status}
-                  </div>
+        <div className="stat-card">
+          <h3>Ganhos do Mês</h3>
+          <div className="stat-value earnings">
+            R$ {stats.monthlyEarnings.toFixed(2)}
+          </div>
+        </div>
+      </div>
+
+      <div className="upcoming-services">
+        <h2>Próximos Serviços</h2>
+        {stats.upcomingServices.length > 0 ? (
+          <div className="services-list">
+            {stats.upcomingServices.map((service) => (
+              <div key={service.id} className="service-card">
+                <div className="service-header">
+                  <h3>{service.serviceName}</h3>
+                  <span className="service-date">
+                    {new Date(service.scheduledDate).toLocaleDateString()}
+                  </span>
                 </div>
-              ))}
-            </div>
-          ) : (
-            <p>No upcoming appointments</p>
-          )}
-        </div>
+                <div className="service-details">
+                  <p><strong>Cliente:</strong> {service.customerName}</p>
+                  <p><strong>Localização:</strong> {service.location}</p>
+                  <p><strong>Horário:</strong> {new Date(service.scheduledDate).toLocaleTimeString()}</p>
+                  <p><strong>Status:</strong> {service.status}</p>
+                </div>
+                <button 
+                  className="btn-primary"
+                  onClick={() => window.location.href = `/professional/services/${service.id}`}
+                >
+                  Ver Detalhes
+                </button>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="no-services">Nenhum serviço agendado para os próximos dias.</p>
+        )}
+      </div>
 
-        <div className="quick-actions">
-          <button onClick={() => navigate('/professional/schedule')}>
-            View Schedule
-          </button>
-          <button onClick={() => navigate('/professional/profile')}>
-            Update Profile
-          </button>
-          <button onClick={() => navigate('/professional/earnings')}>
-            View Earnings
-          </button>
-        </div>
+      <div className="quick-actions">
+        <button onClick={() => window.location.href = '/professional/schedule'}>
+          Ver Agenda
+        </button>
+        <button onClick={() => window.location.href = '/professional/services'}>
+          Histórico de Serviços
+        </button>
+        <button onClick={() => window.location.href = '/professional/profile'}>
+          Meu Perfil
+        </button>
       </div>
     </div>
   );
 }
 
-export default ProfessionalDashboard;
+export default Dashboard;

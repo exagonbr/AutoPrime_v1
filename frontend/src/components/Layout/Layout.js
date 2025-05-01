@@ -1,57 +1,49 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useLocation } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import './Layout.css';
 
 function Layout({ children }) {
   const location = useLocation();
-  const [scrolled, setScrolled] = useState(false);
-  
+  const { user } = useAuth();
+
   // Hide footer on login and authenticated pages
   const hideFooter = location.pathname === '/login' || 
                     location.pathname.startsWith('/admin') ||
                     location.pathname.startsWith('/provider') ||
                     location.pathname.startsWith('/professional');
-  
-  // Add transparent navbar on home page
+
+  // Check if it's an authenticated page
+  const isAuthPage = user && (
+    location.pathname.startsWith('/admin') ||
+    location.pathname.startsWith('/provider') ||
+    location.pathname.startsWith('/professional')
+  );
+
+  // Check if it's the home page
   const isHomePage = location.pathname === '/';
-  
-  // Add white background to navbar on authenticated pages
-  const isAuthPage = location.pathname.startsWith('/admin') ||
-                    location.pathname.startsWith('/provider') ||
-                    location.pathname.startsWith('/professional');
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const isScrolled = window.scrollY > 20;
-      if (isScrolled !== scrolled) {
-        setScrolled(isScrolled);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [scrolled]);
-
-  const getNavbarClassName = () => {
-    if (isAuthPage) return 'white-bg';
-    if (isHomePage) {
-      return scrolled ? 'scrolled' : 'transparent';
-    }
-    return '';
+  const getLayoutClass = () => {
+    let className = 'app-layout';
+    if (isAuthPage) className += ' auth-layout';
+    if (isHomePage) className += ' home-layout';
+    return className;
   };
 
-  const getMainClassName = () => {
+  const getMainClass = () => {
     let className = 'main-content';
     if (isAuthPage) className += ' auth-content';
+    if (isHomePage) className += ' home-content';
+    if (location.pathname === '/login') className += ' login-content';
     return className;
   };
 
   return (
-    <div className="app-layout">
-      <Navbar className={getNavbarClassName()} />
-      <main className={getMainClassName()}>
+    <div className={getLayoutClass()}>
+      <Navbar />
+      <main className={getMainClass()}>
         {children}
       </main>
       {!hideFooter && <Footer />}

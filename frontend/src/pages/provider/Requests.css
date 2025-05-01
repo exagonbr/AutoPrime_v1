@@ -1,0 +1,223 @@
+.requests-container {
+  padding: var(--spacing-lg);
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.requests-container h1 {
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-xl);
+}
+
+/* Filters */
+.requests-filters {
+  margin-bottom: var(--spacing-xl);
+}
+
+.status-filter {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-md);
+  font-size: var(--text-base);
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+  min-width: 200px;
+}
+
+.status-filter:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+/* Request Cards */
+.requests-list {
+  display: grid;
+  gap: var(--spacing-lg);
+}
+
+.request-card {
+  background-color: var(--bg-primary);
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.request-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-md);
+}
+
+.request-info {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.request-info h3 {
+  color: var(--text-primary);
+  font-size: var(--text-lg);
+  margin: 0;
+}
+
+.request-date {
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+}
+
+.status-badge {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-full);
+  color: var(--text-light);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+}
+
+/* Request Details */
+.request-details {
+  margin-bottom: var(--spacing-lg);
+}
+
+.request-details p {
+  margin-bottom: var(--spacing-sm);
+  color: var(--text-secondary);
+}
+
+.request-details strong {
+  color: var(--text-primary);
+}
+
+/* Request Actions */
+.request-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--neutral-200);
+}
+
+.assign-professional {
+  flex: 1;
+}
+
+.assign-professional select {
+  width: 100%;
+  padding: var(--spacing-sm);
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-md);
+  font-size: var(--text-base);
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+}
+
+.status-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+/* Action Buttons */
+.btn-success,
+.btn-error,
+.btn-primary {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: var(--font-medium);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  color: var(--text-light);
+}
+
+.btn-success {
+  background-color: var(--success);
+}
+
+.btn-error {
+  background-color: var(--error);
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+}
+
+.btn-success:hover,
+.btn-error:hover,
+.btn-primary:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+/* Assigned Professional */
+.assigned-professional {
+  margin-top: var(--spacing-md);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--neutral-200);
+  color: var(--text-secondary);
+}
+
+.assigned-professional strong {
+  color: var(--text-primary);
+}
+
+/* Loading and Error States */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  color: var(--text-secondary);
+}
+
+.error-message {
+  background-color: var(--error);
+  color: var(--text-light);
+  padding: var(--spacing-md);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-lg);
+  text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .requests-container {
+    padding: var(--spacing-md);
+  }
+
+  .request-header {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .request-info {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .request-actions {
+    flex-direction: column;
+  }
+
+  .status-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 480px) {
+  .requests-container h1 {
+    font-size: var(--text-2xl);
+  }
+
+  .status-filter {
+    width: 100%;
+  }
+
+  .btn-success,
+  .btn-error,
+  .btn-primary {
+    width: 100%;
+    margin-bottom: var(--spacing-xs);
+  }
+}
