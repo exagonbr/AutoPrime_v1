@@ -1,0 +1,49 @@
+.mechanics {
+  padding: 4rem 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.mechanic-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.mechanic-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  max-width: 250px;
+  padding: 1rem;
+  text-align: center;
+}
+
+.mechanic-card img {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}
+
+.mechanic-card h3 {
+  margin: 1rem 0 0.5rem;
+  color: #007bff;
+}
+
+.mechanic-card p {
+  margin: 0.3rem 0;
+  color: #555;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: #fff;
+  padding: 0.5rem 1.5rem;
+  border: none;
+  border-radius: 30px;
+  font-size: 1rem;
+  cursor: not-allowed;
+}
