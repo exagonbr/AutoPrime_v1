@@ -11,11 +11,11 @@ function Home() {
         </video>
         <div className="hero-overlay"></div>
         <div className="hero-content">
-          <h1>Your Trusted Auto Service Partner</h1>
-          <p>Professional mechanics at your service 24/7. Quality repairs and maintenance for all vehicle types.</p>
+          <h1>Seu Parceiro Confiável em Serviços Automotivos</h1>
+          <p>Mecânicos profissionais à sua disposição 24/7. Reparos e manutenção de qualidade para todos os tipos de veículos.</p>
           <div className="hero-buttons">
-            <a href="/request-help" className="btn btn-primary">Request Help Now</a>
-            <a href="/about" className="btn btn-outline">Learn More</a>
+            <a href="/request-help" className="btn btn-primary">Solicitar Ajuda Agora</a>
+            <a href="/about" className="btn btn-outline">Saiba Mais</a>
           </div>
         </div>
       </section>

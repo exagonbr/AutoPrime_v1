@@ -31,16 +31,16 @@ function Navbar() {
         </button>
 
         <div className={`navbar-links ${isMobileMenuOpen ? 'active' : ''}`}>
-          <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
-          <Link to="/mechanics" onClick={() => setIsMobileMenuOpen(false)}>Mechanics</Link>
-          <Link to="/request-help" onClick={() => setIsMobileMenuOpen(false)}>Request Help</Link>
-          <Link to="/booking" onClick={() => setIsMobileMenuOpen(false)}>Booking</Link>
-          <Link to="/about" onClick={() => setIsMobileMenuOpen(false)}>About</Link>
-          <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>Contact</Link>
+          <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>Início</Link>
+          <Link to="/mechanics" onClick={() => setIsMobileMenuOpen(false)}>Mecânicos</Link>
+          <Link to="/request-help" onClick={() => setIsMobileMenuOpen(false)}>Solicitar Ajuda</Link>
+          <Link to="/booking" onClick={() => setIsMobileMenuOpen(false)}>Agendamento</Link>
+          <Link to="/about" onClick={() => setIsMobileMenuOpen(false)}>Sobre</Link>
+          <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>Contato</Link>
         </div>
 
         <Link to="/login" className="login-button" onClick={() => setIsMobileMenuOpen(false)}>
-          LOGIN
+          ENTRAR
         </Link>
       </div>
     </nav>

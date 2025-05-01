@@ -5,29 +5,29 @@ import './ServicesSection.css';
 function ServicesSection() {
   const services = [
     {
-      title: "Emergency Repairs",
-      description: "24/7 emergency repair services for all types of vehicles. Quick response and professional solutions.",
+      title: "Reparos de Emergência",
+      description: "Serviços de reparo de emergência 24/7 para todos os tipos de veículos. Resposta rápida e soluções profissionais.",
       image: "https://images.pexels.com/photos/3807386/pexels-photo-3807386.jpeg",
       icon: "wrench",
       color: "#FF4D4D"
     },
     {
-      title: "Routine Maintenance",
-      description: "Regular maintenance services to keep your vehicle running smoothly and prevent future issues.",
+      title: "Manutenção de Rotina",
+      description: "Serviços de manutenção regular para manter seu veículo funcionando perfeitamente e prevenir problemas futuros.",
       image: "https://images.pexels.com/photos/3807175/pexels-photo-3807175.jpeg",
       icon: "tools",
       color: "#4CAF50"
     },
     {
-      title: "Diagnostics",
-      description: "Advanced diagnostic services to identify and resolve complex vehicle issues accurately.",
+      title: "Diagnósticos",
+      description: "Serviços avançados de diagnóstico para identificar e resolver problemas complexos do veículo com precisão.",
       image: "https://images.pexels.com/photos/3807495/pexels-photo-3807495.jpeg",
       icon: "search",
       color: "#2196F3"
     },
     {
-      title: "Custom Solutions",
-      description: "Tailored automotive solutions for unique requirements and specialized vehicles.",
+      title: "Soluções Personalizadas",
+      description: "Soluções automotivas sob medida para requisitos únicos e veículos especializados.",
       image: "https://images.pexels.com/photos/3807516/pexels-photo-3807516.jpeg",
       icon: "cog",
       color: "#9C27B0"
@@ -37,9 +37,9 @@ function ServicesSection() {
   return (
     <section className="services section">
       <div className="container">
-        <h2 className="section-title">Our Services</h2>
+        <h2 className="section-title">Nossos Serviços</h2>
         <p className="section-subtitle">
-          Comprehensive auto care solutions tailored to your needs. Experience excellence in every service.
+          Soluções completas de cuidados automotivos adaptadas às suas necessidades. Experimente a excelência em cada serviço.
         </p>
         
         <div className="services-grid">
@@ -56,7 +56,7 @@ function ServicesSection() {
                 <h3>{service.title}</h3>
                 <p>{service.description}</p>
                 <Link to="/booking" className="btn">
-                  Book Now
+                  Agendar Agora
                 </Link>
               </div>
             </div>
@@ -64,10 +64,10 @@ function ServicesSection() {
         </div>
 
         <div className="services-cta">
-          <h3>Ready to experience our premium services?</h3>
-          <p>Book an appointment today and let our expert mechanics take care of your vehicle.</p>
+          <h3>Pronto para experimentar nossos serviços premium?</h3>
+          <p>Agende um horário hoje e deixe nossos mecânicos especialistas cuidarem do seu veículo.</p>
           <Link to="/booking" className="btn btn-primary">
-            Schedule Service
+            Agendar Serviço
           </Link>
         </div>
       </div>
