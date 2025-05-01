@@ -14,6 +14,9 @@ function Layout({ children }) {
                     location.pathname.startsWith('/provider') ||
                     location.pathname.startsWith('/professional');
   
+  // Add transparent navbar on home page
+  const isHomePage = location.pathname === '/';
+  
   // Add white background to navbar on authenticated pages
   const isAuthPage = location.pathname.startsWith('/admin') ||
                     location.pathname.startsWith('/provider') ||
@@ -31,12 +34,24 @@ function Layout({ children }) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [scrolled]);
 
+  const getNavbarClassName = () => {
+    if (isAuthPage) return 'white-bg';
+    if (isHomePage) {
+      return scrolled ? 'scrolled' : 'transparent';
+    }
+    return '';
+  };
+
+  const getMainClassName = () => {
+    let className = 'main-content';
+    if (isAuthPage) className += ' auth-content';
+    return className;
+  };
+
   return (
     <div className="app-layout">
-      <Navbar 
-        className={`${isAuthPage ? 'white-bg' : ''} ${scrolled ? 'scrolled' : ''}`}
-      />
-      <main className={`main-content ${isAuthPage ? 'auth-content' : ''}`}>
+      <Navbar className={getNavbarClassName()} />
+      <main className={getMainClassName()}>
         {children}
       </main>
       {!hideFooter && <Footer />}
