@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import './Navbar.css';
 
@@ -8,6 +8,10 @@ function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  
+  // Check if current page is an admin page
+  const isAdminPage = location.pathname.startsWith('/admin');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,7 +33,7 @@ function Navbar() {
   };
 
   return (
-    <nav className={`navbar ${isScrolled ? 'scrolled' : ''} ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
+    <nav className={`navbar ${isScrolled ? 'scrolled' : ''} ${isMobileMenuOpen ? 'mobile-open' : ''} ${isAdminPage ? 'white-bg' : ''}`}>
       <div className="navbar-container">
         <Link to="/" className="navbar-logo">
           AutoPrime
@@ -40,12 +44,23 @@ function Navbar() {
         </button>
 
         <div className={`navbar-links ${isMobileMenuOpen ? 'active' : ''}`}>
-          <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>Início</Link>
-          <Link to="/mechanics" onClick={() => setIsMobileMenuOpen(false)}>Mecânicos</Link>
-          <Link to="/request-help" onClick={() => setIsMobileMenuOpen(false)}>Solicitar Ajuda</Link>
-          <Link to="/booking" onClick={() => setIsMobileMenuOpen(false)}>Agendamento</Link>
-          <Link to="/about" onClick={() => setIsMobileMenuOpen(false)}>Sobre</Link>
-          <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>Contato</Link>
+          {user?.role === 'master' ? (
+            <>
+              <Link to="/admin/providers" onClick={() => setIsMobileMenuOpen(false)}>Prestadores</Link>
+              <Link to="/admin/plans" onClick={() => setIsMobileMenuOpen(false)}>Planos</Link>
+              <Link to="/admin/categories" onClick={() => setIsMobileMenuOpen(false)}>Categorias</Link>
+              <Link to="/admin/transactions" onClick={() => setIsMobileMenuOpen(false)}>Transações</Link>
+            </>
+          ) : (
+            <>
+              <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>Início</Link>
+              <Link to="/mechanics" onClick={() => setIsMobileMenuOpen(false)}>Mecânicos</Link>
+              <Link to="/request-help" onClick={() => setIsMobileMenuOpen(false)}>Solicitar Ajuda</Link>
+              <Link to="/booking" onClick={() => setIsMobileMenuOpen(false)}>Agendamento</Link>
+              <Link to="/about" onClick={() => setIsMobileMenuOpen(false)}>Sobre</Link>
+              <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>Contato</Link>
+            </>
+          )}
         </div>
 
         {user ? (

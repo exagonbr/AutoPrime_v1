@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem('token', data.token);
       localStorage.setItem('role', data.role);
       setUser({ role: data.role });
-      return { success: true };
+      return { success: true, role: data.role };
     } catch (error) {
       return {
         success: false,

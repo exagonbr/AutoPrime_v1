@@ -24,7 +24,11 @@ function Login() {
     try {
       const result = await login(username, password);
       if (result.success) {
-        navigate('/');
+        if (result.role === 'master') {
+          navigate('/admin/dashboard');
+        } else {
+          navigate('/');
+        }
       } else {
         setError(result.error);
       }

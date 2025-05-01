@@ -9,7 +9,7 @@ router.get('/dashboard/stats', async (req, res) => {
       activeProviders: await req.db('service_providers').where('is_active', true).count('* as count').first(),
       totalTransactions: await req.db('service_transactions').count('* as count').first(),
       monthlyRevenue: await req.db('service_transactions')
-        .where('created_at', '>=', req.db.raw('DATE_TRUNC(\'month\', CURRENT_DATE)'))
+        .where('created_at', '>=', req.db.raw("date('now','start of month')"))
         .sum('platform_fee as total')
         .first()
     };

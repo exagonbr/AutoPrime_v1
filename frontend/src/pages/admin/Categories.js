@@ -2,37 +2,37 @@ import React, { useState, useEffect } from 'react';
 import api from '../../services/api';
 import './Admin.css';
 
-function Plans() {
-  const [plans, setPlans] = useState([]);
+function Categories() {
+  const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    loadPlans();
+    loadCategories();
   }, []);
 
-  const loadPlans = async () => {
+  const loadCategories = async () => {
     try {
-      const response = await api.get('/api/admin/plans');
-      setPlans(response.data);
+      const response = await api.get('/api/admin/categories');
+      setCategories(response.data);
       setError(null);
     } catch (err) {
-      setError('Erro ao carregar planos');
-      console.error('Error loading plans:', err);
+      setError('Erro ao carregar categorias');
+      console.error('Error loading categories:', err);
     } finally {
       setLoading(false);
     }
   };
 
-  const togglePlanStatus = async (planId, currentStatus) => {
+  const handleStatusChange = async (categoryId, currentStatus) => {
     try {
-      await api.patch(`/api/admin/plans/${planId}/toggle-status`, {
+      await api.patch(`/api/admin/categories/${categoryId}/toggle-status`, {
         is_active: !currentStatus
       });
-      loadPlans();
+      loadCategories();
     } catch (err) {
-      setError('Erro ao atualizar status do plano');
-      console.error('Error updating plan status:', err);
+      setError('Erro ao atualizar status da categoria');
+      console.error('Error updating category status:', err);
     }
   };
 
@@ -42,8 +42,8 @@ function Plans() {
   return (
     <div className="admin-page">
       <div className="admin-header">
-        <h1>Gerenciar Planos</h1>
-        <button className="btn btn-primary">Adicionar Plano</button>
+        <h1>Gerenciar Categorias</h1>
+        <button className="btn btn-primary">Adicionar Categoria</button>
       </div>
 
       <div className="admin-content">
@@ -53,28 +53,30 @@ function Plans() {
               <tr>
                 <th>Nome</th>
                 <th>Descrição</th>
-                <th>Valor Mensal</th>
+                <th>Ícone</th>
                 <th>Status</th>
                 <th>Ações</th>
               </tr>
             </thead>
             <tbody>
-              {plans.map(plan => (
-                <tr key={plan.id}>
-                  <td>{plan.name}</td>
-                  <td>{plan.description}</td>
-                  <td>R$ {plan.monthly_fee.toFixed(2)}</td>
+              {categories.map(category => (
+                <tr key={category.id}>
+                  <td>{category.name}</td>
+                  <td>{category.description}</td>
                   <td>
-                    <span className={`status-badge ${plan.is_active ? 'active' : 'inactive'}`}>
-                      {plan.is_active ? 'Ativo' : 'Inativo'}
+                    <i className={`fas fa-${category.icon}`}></i>
+                  </td>
+                  <td>
+                    <span className={`status-badge ${category.is_active ? 'active' : 'inactive'}`}>
+                      {category.is_active ? 'Ativo' : 'Inativo'}
                     </span>
                   </td>
                   <td>
                     <button 
                       className="btn btn-icon"
-                      onClick={() => togglePlanStatus(plan.id, plan.is_active)}
+                      onClick={() => handleStatusChange(category.id, category.is_active)}
                     >
-                      {plan.is_active ? 'Desativar' : 'Ativar'}
+                      {category.is_active ? 'Desativar' : 'Ativar'}
                     </button>
                     <button className="btn btn-icon">Editar</button>
                   </td>
@@ -88,4 +90,4 @@ function Plans() {
   );
 }
 
-export default Plans;
+export default Categories;

@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import PrivateRoute from './components/PrivateRoute';
 import Layout from './components/Layout/Layout';
+import AdminRoutes from './routes/AdminRoutes';
 
 // Pages
 import Home from './pages/Home';
@@ -12,11 +13,6 @@ import RequestHelp from './pages/RequestHelp_temp';
 import Mechanics from './pages/Mechanics';
 import Booking from './pages/Booking';
 import Login from './pages/Login';
-
-// Admin Pages
-import Dashboard from './pages/admin/Dashboard';
-import Providers from './pages/admin/Providers';
-import Plans from './pages/admin/Plans';
 
 function App() {
   return (
@@ -34,26 +30,10 @@ function App() {
 
           {/* Protected Admin Routes */}
           <Route
-            path="/admin/dashboard"
+            path="/admin/*"
             element={
               <PrivateRoute requiredRole="master">
-                <Dashboard />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/admin/providers"
-            element={
-              <PrivateRoute requiredRole="master">
-                <Providers />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/admin/plans"
-            element={
-              <PrivateRoute requiredRole="master">
-                <Plans />
+                <AdminRoutes />
               </PrivateRoute>
             }
           />
