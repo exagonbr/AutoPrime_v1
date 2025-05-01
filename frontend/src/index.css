@@ -1,0 +1,359 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  line-height: 1.6;
+  color: #222;
+  background-color: #fff;
+  padding-top: 60px; /* To offset fixed navbar */
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Reuse styles from original css/styles.css for hero, services, about, contact, buttons, etc. */
+
+/* Hero section */
+.hero {
+  position: relative;
+  height: 100vh;
+  background: url('https://images.pexels.com/photos/189296/pexels-photo-189296.jpeg?auto=compress&cs=tinysrgb&w=1600') no-repeat center center/cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 700px;
+  padding: 0 1rem;
+}
+
+.hero-content h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.hero-content p {
+  font-size: 1.3rem;
+  margin-bottom: 2rem;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: #fff;
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+/* Services section */
+.services {
+  padding: 4rem 2rem;
+  background-color: #f9f9f9;
+  text-align: center;
+}
+
+.services h2 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  font-weight: 700;
+  color: #222;
+}
+
+.service-cards {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.service-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  max-width: 300px;
+  padding-bottom: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.service-card img {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  height: 180px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.service-card h3 {
+  margin: 1rem 0 0.5rem;
+  font-size: 1.5rem;
+  color: #007bff;
+}
+
+.service-card p {
+  padding: 0 1rem;
+  font-size: 1rem;
+  color: #555;
+}
+
+.btn-secondary {
+  display: inline-block;
+  margin-top: 1rem;
+  background-color: transparent;
+  border: 2px solid #007bff;
+  color: #007bff;
+  padding: 0.5rem 1.5rem;
+  border-radius: 30px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* About section */
+.about {
+  padding: 4rem 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.about h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  color: #222;
+}
+
+.about p {
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* Contact section */
+.contact {
+  padding: 4rem 2rem;
+  background-color: #f9f9f9;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.contact h2 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  font-weight: 700;
+  color: #222;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+label {
+  font-weight: 600;
+  text-align: left;
+  color: #333;
+}
+
+input, textarea {
+  padding: 0.75rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  resize: vertical;
+}
+
+textarea {
+  min-height: 100px;
+}
+
+button[type="submit"] {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+.contact-info {
+  margin-top: 2rem;
+  font-size: 1rem;
+  color: #555;
+}
+
+.contact-info p {
+  margin: 0.3rem 0;
+}
+
+.contact-info a {
+  color: #007bff;
+  margin: 0 0.3rem;
+}
+
+.contact-info a:hover {
+  text-decoration: underline;
+}
+
+/* Mechanics page */
+.mechanics {
+  padding: 4rem 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.mechanic-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.mechanic-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  max-width: 250px;
+  padding: 1rem;
+  text-align: center;
+}
+
+.mechanic-card img {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}
+
+.mechanic-card h3 {
+  margin: 1rem 0 0.5rem;
+  color: #007bff;
+}
+
+.mechanic-card p {
+  margin: 0.3rem 0;
+  color: #555;
+}
+
+/* Request Help and Booking pages */
+.request-help, .booking {
+  padding: 4rem 2rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.request-help h2, .booking h2 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  font-weight: 700;
+  color: #222;
+}
+
+.request-help form, .booking form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.request-help label, .booking label {
+  font-weight: 600;
+  text-align: left;
+  color: #333;
+}
+
+.request-help input, .booking input, .request-help textarea {
+  padding: 0.75rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  resize: vertical;
+}
+
+.request-help textarea {
+  min-height: 100px;
+}
+
+.request-help button[type="submit"], .booking button[type="submit"] {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.request-help button[type="submit"]:hover, .booking button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .service-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .mechanic-list {
+    flex-direction: column;
+    align-items: center;
+  }
+}
