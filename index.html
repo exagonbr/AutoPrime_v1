@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AutoPrime</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="container header-container">
+      <a href="#" class="logo">AutoPrime</a>
+      <nav class="nav" id="nav-menu">
+        <ul class="nav-list">
+          <li><a href="#home" class="nav-link">Home</a></li>
+          <li><a href="#services" class="nav-link">Services</a></li>
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <section id="home" class="hero animate-on-scroll">
+    <div class="container hero-container">
+      <h1 class="animate-on-scroll">AutoPrime</h1>
+      <p class="animate-on-scroll">Your trusted partner for all auto repair needs</p>
+      <a href="#contact" class="btn btn-primary animate-on-scroll">Get a Quote</a>
+      <a href="#services" class="btn btn-secondary animate-on-scroll">Our Services</a>
+    </div>
+  </section>
+
+  <section id="services" class="services">
+    <div class="container">
+      <h2 class="animate-on-scroll">Our Services</h2>
+      <div class="services-grid">
+        <div class="service-item animate-on-scroll">
+          <i class="fas fa-car service-icon"></i>
+          <h3>Whitelabel Cars</h3>
+          <p>Premium whitelabel cars tailored to your needs, offering flexibility and style.</p>
+        </div>
+        <div class="service-item animate-on-scroll">
+          <i class="fas fa-motorcycle service-icon"></i>
+          <h3>Motors</h3>
+          <p>Wide range of motorcycles and motors for every rider, from beginner to pro.</p>
+        </div>
+        <div class="service-item animate-on-scroll">
+          <i class="fas fa-tools service-icon"></i>
+          <h3>Mechanic Help</h3>
+          <p>Expert mechanic support to keep your vehicles running smoothly and safely.</p>
+        </div>
+        <div class="service-item animate-on-scroll">
+          <i class="fas fa-car-crash service-icon"></i>
+          <h3>Collision Repair</h3>
+          <p>Professional collision repair to restore your vehicle’s appearance.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="about">
+    <div class="container about-container">
+      <div class="about-text">
+        <h2>About AutoPrime</h2>
+        <p>At AutoPrime, we are dedicated to providing top-quality auto repair services with a focus on customer satisfaction and reliability. Our experienced technicians use the latest tools and technology to ensure your vehicle is in the best hands.</p>
+      </div>
+      <div class="about-image">
+        <img src="https://images.pexels.com/photos/3806244/pexels-photo-3806244.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Car repair shop" />
+      </div>
+    </div>
+  </section>
+
+  <section id="portfolio" class="portfolio">
+    <div class="container">
+      <h2>Our Work</h2>
+      <div class="portfolio-grid">
+        <img src="https://images.pexels.com/photos/3806244/pexels-photo-3806244.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=350&w=500" alt="Car repair work 1" />
+        <img src="https://images.pexels.com/photos/3806245/pexels-photo-3806245.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=350&w=500" alt="Car repair work 2" />
+        <img src="https://images.pexels.com/photos/3806246/pexels-photo-3806246.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=350&w=500" alt="Car repair work 3" />
+        <img src="https://images.pexels.com/photos/3806247/pexels-photo-3806247.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=350&w=500" alt="Car repair work 4" />
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="container contact-container">
+      <h2>Contact Us</h2>
+      <form id="contact-form" class="contact-form" novalidate>
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required />
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required />
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="5" required></textarea>
+        <button type="submit" class="btn btn-primary">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <div id="cookie-consent" class="cookie-consent">
+    <div class="cookie-content">
+      <p>Your privacy matters. We use cookies to enhance your experience, analyse traffic, and serve personalised content.</p>
+      <div class="cookie-buttons">
+        <button id="accept-cookies" class="btn btn-primary">Accept Cookies</button>
+        <button id="manage-preferences" class="btn btn-secondary">Manage Preferences</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container footer-container">
+      <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="https://themeforest.net/item/cras-car-repair-auto-services-html-template/51209509" target="_blank" rel="noopener noreferrer">Envato Market</a>
+        <a href="https://themeforest.net/checkout/from_item/51209509?license=regular&support=bundle_6month" target="_blank" rel="noopener noreferrer">Buy Now</a>
+      </div>
+      <div class="footer-social">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      </div>
+      <p>&copy; 2024 AutoPrime. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
