@@ -1,29 +1,75 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './ServicesSection.css';
 
 function ServicesSection() {
+  const services = [
+    {
+      title: "Emergency Repairs",
+      description: "24/7 emergency repair services for all types of vehicles. Quick response and professional solutions.",
+      image: "https://images.pexels.com/photos/3807386/pexels-photo-3807386.jpeg",
+      icon: "wrench",
+      color: "#FF4D4D"
+    },
+    {
+      title: "Routine Maintenance",
+      description: "Regular maintenance services to keep your vehicle running smoothly and prevent future issues.",
+      image: "https://images.pexels.com/photos/3807175/pexels-photo-3807175.jpeg",
+      icon: "tools",
+      color: "#4CAF50"
+    },
+    {
+      title: "Diagnostics",
+      description: "Advanced diagnostic services to identify and resolve complex vehicle issues accurately.",
+      image: "https://images.pexels.com/photos/3807495/pexels-photo-3807495.jpeg",
+      icon: "search",
+      color: "#2196F3"
+    },
+    {
+      title: "Custom Solutions",
+      description: "Tailored automotive solutions for unique requirements and specialized vehicles.",
+      image: "https://images.pexels.com/photos/3807516/pexels-photo-3807516.jpeg",
+      icon: "cog",
+      color: "#9C27B0"
+    }
+  ];
+
   return (
-    <section className="services-section">
-      <h2>Our Services</h2>
-      <div className="services-cards">
-        <article className="service-card">
-          <img src="https://images.pexels.com/photos/358070/pexels-photo-358070.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1600" alt="Whitelabel Vehicles" />
-          <h3>Whitelabel Vehicles</h3>
-          <p>Premium whitelabel cars tailored to your needs, offering flexibility and style.</p>
-          <button className="btn-secondary" disabled>Learn More</button>
-        </article>
-        <article className="service-card">
-          <img src="https://images.pexels.com/photos/305070/pexels-photo-305070.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1600" alt="Motors" />
-          <h3>Motors</h3>
-          <p>Wide range of motorcycles and motors for every rider, from beginner to pro.</p>
-          <button className="btn-secondary" disabled>Learn More</button>
-        </article>
-        <article className="service-card">
-          <img src="https://images.pexels.com/photos/3951850/pexels-photo-3951850.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1600" alt="Mechanic Help" />
-          <h3>Mechanic Help</h3>
-          <p>Expert mechanic support to keep your vehicles running smoothly and safely.</p>
-          <button className="btn-secondary" disabled>Learn More</button>
-        </article>
+    <section className="services section">
+      <div className="container">
+        <h2 className="section-title">Our Services</h2>
+        <p className="section-subtitle">
+          Comprehensive auto care solutions tailored to your needs. Experience excellence in every service.
+        </p>
+        
+        <div className="services-grid">
+          {services.map((service, index) => (
+            <div className="service-card" key={index}>
+              <div className="service-image">
+                <img src={service.image} alt={service.title} loading="lazy" />
+                <div className="service-overlay"></div>
+              </div>
+              <div className="service-content">
+                <div className="service-icon" style={{ backgroundColor: service.color }}>
+                  <i className={`fas fa-${service.icon}`}></i>
+                </div>
+                <h3>{service.title}</h3>
+                <p>{service.description}</p>
+                <Link to="/booking" className="btn">
+                  Book Now
+                </Link>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="services-cta">
+          <h3>Ready to experience our premium services?</h3>
+          <p>Book an appointment today and let our expert mechanics take care of your vehicle.</p>
+          <Link to="/booking" className="btn btn-primary">
+            Schedule Service
+          </Link>
+        </div>
       </div>
     </section>
   );
