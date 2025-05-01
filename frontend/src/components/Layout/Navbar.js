@@ -15,35 +15,33 @@ function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
   return (
-    <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
-      <div className="navbar-container container">
-        <Link to="/" className="logo">
+    <nav className={`navbar ${isScrolled ? 'scrolled' : ''} ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
+      <div className="navbar-container">
+        <Link to="/" className="navbar-logo">
           AutoPrime
         </Link>
 
-        <button 
-          className={`mobile-menu-btn ${isMobileMenuOpen ? 'active' : ''}`}
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          <span></span>
-          <span></span>
-          <span></span>
+        <button className="mobile-menu-button" onClick={toggleMobileMenu}>
+          <span className="menu-icon"></span>
         </button>
 
-        <ul className={`nav-links ${isMobileMenuOpen ? 'active' : ''}`}>
-          <li><Link to="/" onClick={() => setIsMobileMenuOpen(false)}>Home</Link></li>
-          <li><Link to="/mechanics" onClick={() => setIsMobileMenuOpen(false)}>Mechanics</Link></li>
-          <li><Link to="/request-help" onClick={() => setIsMobileMenuOpen(false)}>Request Help</Link></li>
-          <li><Link to="/booking" onClick={() => setIsMobileMenuOpen(false)}>Booking</Link></li>
-          <li><Link to="/about" onClick={() => setIsMobileMenuOpen(false)}>About</Link></li>
-          <li><Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>Contact</Link></li>
-          <li className="nav-cta">
-            <Link to="/login" className="btn btn-primary" onClick={() => setIsMobileMenuOpen(false)}>
-              Login
-            </Link>
-          </li>
-        </ul>
+        <div className={`navbar-links ${isMobileMenuOpen ? 'active' : ''}`}>
+          <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
+          <Link to="/mechanics" onClick={() => setIsMobileMenuOpen(false)}>Mechanics</Link>
+          <Link to="/request-help" onClick={() => setIsMobileMenuOpen(false)}>Request Help</Link>
+          <Link to="/booking" onClick={() => setIsMobileMenuOpen(false)}>Booking</Link>
+          <Link to="/about" onClick={() => setIsMobileMenuOpen(false)}>About</Link>
+          <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>Contact</Link>
+        </div>
+
+        <Link to="/login" className="login-button" onClick={() => setIsMobileMenuOpen(false)}>
+          LOGIN
+        </Link>
       </div>
     </nav>
   );
