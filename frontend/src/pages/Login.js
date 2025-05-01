@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 import './Login.css';
 
-function Login({ onLoginSuccess }) {
+function Login() {
+  const navigate = useNavigate();
+  const { login } = useAuth();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
@@ -12,30 +16,20 @@ function Login({ onLoginSuccess }) {
     setError(null);
 
     if (!username || !password) {
-      setError('Please enter both username and password.');
+      setError('Por favor, insira usuário e senha.');
       return;
     }
 
     setLoading(true);
     try {
-      const response = await fetch('/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Invalid username or password');
-      }
-
-      const data = await response.json();
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('role', data.role);
-      if (onLoginSuccess) {
-        onLoginSuccess();
+      const result = await login(username, password);
+      if (result.success) {
+        navigate('/');
+      } else {
+        setError(result.error);
       }
     } catch (err) {
-      setError(err.message);
+      setError('Erro ao tentar fazer login');
     } finally {
       setLoading(false);
     }
@@ -43,10 +37,14 @@ function Login({ onLoginSuccess }) {
 
   return (
     <div className="login-container">
+      <video className="login-video" autoPlay muted loop playsInline>
+        <source src="/assets/video/hero-bg-video.mp4" type="video/mp4" />
+      </video>
+      <div className="login-overlay"></div>
       <form className="login-form" onSubmit={handleSubmit}>
-        <h2>Professional Login</h2>
+        <h2>Login Profissional</h2>
         {error && <div className="error-message">{error}</div>}
-        <label htmlFor="username">Username</label>
+        <label htmlFor="username">Usuário</label>
         <input
           id="username"
           type="text"
@@ -55,7 +53,7 @@ function Login({ onLoginSuccess }) {
           autoComplete="username"
           required
         />
-        <label htmlFor="password">Password</label>
+        <label htmlFor="password">Senha</label>
         <input
           id="password"
           type="password"
@@ -65,7 +63,7 @@ function Login({ onLoginSuccess }) {
           required
         />
         <button type="submit" disabled={loading}>
-          {loading ? 'Logging in...' : 'Login'}
+          {loading ? 'Entrando...' : 'Entrar'}
         </button>
       </form>
     </div>

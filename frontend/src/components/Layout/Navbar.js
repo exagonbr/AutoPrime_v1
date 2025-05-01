@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 import './Navbar.css';
 
 function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,6 +20,12 @@ function Navbar() {
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+    setIsMobileMenuOpen(false);
   };
 
   return (
@@ -39,9 +48,15 @@ function Navbar() {
           <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>Contato</Link>
         </div>
 
-        <Link to="/login" className="login-button" onClick={() => setIsMobileMenuOpen(false)}>
-          ENTRAR
-        </Link>
+        {user ? (
+          <button onClick={handleLogout} className="login-button">
+            SAIR
+          </button>
+        ) : (
+          <Link to="/login" className="login-button" onClick={() => setIsMobileMenuOpen(false)}>
+            ENTRAR
+          </Link>
+        )}
       </div>
     </nav>
   );
