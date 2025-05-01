@@ -5,6 +5,7 @@ const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  withCredentials: true
 });
 
 // Add a request interceptor to include the auth token
@@ -14,6 +15,8 @@ api.interceptors.request.use((config) => {
     config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
+}, (error) => {
+  return Promise.reject(error);
 });
 
 // Add response interceptor to handle errors
@@ -21,7 +24,6 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response) {
-      // Handle specific error cases
       switch (error.response.status) {
         case 401:
           localStorage.removeItem('token');

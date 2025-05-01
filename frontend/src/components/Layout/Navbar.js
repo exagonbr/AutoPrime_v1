@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
+<<<<<<< HEAD
 import { Link, useLocation } from 'react-router-dom';
+=======
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+>>>>>>> 4c537f1 (Everyt)
 import { useAuth } from '../../contexts/AuthContext';
 import './Navbar.css';
 
 function Navbar() {
   const { user, logout } = useAuth();
+<<<<<<< HEAD
   const location = useLocation();
   const [isCollapsed, setIsCollapsed] = useState(true);
   const [scrolled, setScrolled] = useState(false);
@@ -15,6 +20,13 @@ function Navbar() {
     location.pathname.startsWith('/provider') ||
     location.pathname.startsWith('/professional')
   );
+=======
+  const navigate = useNavigate();
+  const location = useLocation();
+  
+  // Check if current page is an admin page
+  const isAdminPage = location.pathname.startsWith('/admin');
+>>>>>>> 4c537f1 (Everyt)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -67,6 +79,7 @@ function Navbar() {
   };
 
   return (
+<<<<<<< HEAD
     <nav className={getNavbarClass()}>
       {isAuthPage ? (
         // Side Navigation for authenticated pages
@@ -84,6 +97,13 @@ function Navbar() {
                 <i className={`fas fa-${isCollapsed ? 'chevron-right' : 'chevron-left'}`}></i>
               </button>
             </div>
+=======
+    <nav className={`navbar ${isScrolled ? 'scrolled' : ''} ${isMobileMenuOpen ? 'mobile-open' : ''} ${isAdminPage ? 'white-bg' : ''}`}>
+      <div className="navbar-container">
+        <Link to="/" className="navbar-logo">
+          AutoPrime
+        </Link>
+>>>>>>> 4c537f1 (Everyt)
 
             <div className="navbar-side-links">
               {getLinks().map((link) => (
@@ -98,6 +118,7 @@ function Navbar() {
               ))}
             </div>
 
+<<<<<<< HEAD
             <div className="navbar-side-footer">
               <Link to="/profile" className="profile-link">
                 <i className="fas fa-user-circle"></i>
@@ -115,6 +136,35 @@ function Navbar() {
         <div className="navbar-top-content">
           <Link to="/" className="navbar-logo">
             AutoPrime
+=======
+        <div className={`navbar-links ${isMobileMenuOpen ? 'active' : ''}`}>
+          {user?.role === 'master' ? (
+            <>
+              <Link to="/admin/providers" onClick={() => setIsMobileMenuOpen(false)}>Prestadores</Link>
+              <Link to="/admin/plans" onClick={() => setIsMobileMenuOpen(false)}>Planos</Link>
+              <Link to="/admin/categories" onClick={() => setIsMobileMenuOpen(false)}>Categorias</Link>
+              <Link to="/admin/transactions" onClick={() => setIsMobileMenuOpen(false)}>Transações</Link>
+            </>
+          ) : (
+            <>
+              <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>Início</Link>
+              <Link to="/mechanics" onClick={() => setIsMobileMenuOpen(false)}>Mecânicos</Link>
+              <Link to="/request-help" onClick={() => setIsMobileMenuOpen(false)}>Solicitar Ajuda</Link>
+              <Link to="/booking" onClick={() => setIsMobileMenuOpen(false)}>Agendamento</Link>
+              <Link to="/about" onClick={() => setIsMobileMenuOpen(false)}>Sobre</Link>
+              <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>Contato</Link>
+            </>
+          )}
+        </div>
+
+        {user ? (
+          <button onClick={handleLogout} className="login-button">
+            SAIR
+          </button>
+        ) : (
+          <Link to="/login" className="login-button" onClick={() => setIsMobileMenuOpen(false)}>
+            ENTRAR
+>>>>>>> 4c537f1 (Everyt)
           </Link>
 
           <div className="navbar-top-links">

@@ -20,8 +20,57 @@
   box-shadow: var(--shadow-sm);
 }
 
+<<<<<<< HEAD
 .navbar-top-content {
   max-width: 1280px;
+=======
+/* White background styles for admin pages */
+.navbar.white-bg {
+  background: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar.white-bg .navbar-logo,
+.navbar.white-bg .navbar-links a {
+  color: var(--text-color);
+}
+
+.navbar.white-bg .navbar-logo:hover {
+  color: var(--primary-color);
+}
+
+.navbar.white-bg .navbar-links a:hover {
+  color: var(--primary-color);
+}
+
+.navbar.white-bg .navbar-links a::after {
+  background-color: var(--primary-color);
+}
+
+.navbar.white-bg .menu-icon,
+.navbar.white-bg .menu-icon::before,
+.navbar.white-bg .menu-icon::after {
+  background-color: var(--text-color);
+}
+
+.navbar.white-bg .mobile-open .menu-icon {
+  background-color: transparent;
+}
+
+.navbar.white-bg .login-button {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: white;
+}
+
+.navbar.white-bg .login-button:hover {
+  background-color: transparent;
+  color: var(--primary-color);
+}
+
+.navbar-container {
+  max-width: var(--container-width);
+>>>>>>> 4c537f1 (Everyt)
   margin: 0 auto;
   padding: 0 var(--spacing-md);
   display: flex;

@@ -5,8 +5,11 @@ import { RoleProvider } from './contexts/RoleContext';
 import PrivateRoute from './components/PrivateRoute';
 import Layout from './components/Layout/Layout';
 import AdminRoutes from './routes/AdminRoutes';
+<<<<<<< HEAD
 import ProviderRoutes from './routes/ProviderRoutes';
 import ProfessionalRoutes from './routes/ProfessionalRoutes';
+=======
+>>>>>>> 4c537f1 (Everyt)
 
 // Pages
 import Home from './pages/Home';
@@ -16,8 +19,11 @@ import Services from './pages/Services';
 import RequestHelp from './pages/RequestHelp';
 import RequestStatus from './pages/RequestStatus';
 import Login from './pages/Login';
+<<<<<<< HEAD
 import Profile from './pages/Profile';
 import MyRequests from './pages/MyRequests';
+=======
+>>>>>>> 4c537f1 (Everyt)
 
 function App() {
   return (
@@ -34,6 +40,7 @@ function App() {
             <Route path="/request-status" element={<RequestStatus />} />
             <Route path="/login" element={<Login />} />
 
+<<<<<<< HEAD
             {/* User Routes */}
             <Route
               path="/profile"
@@ -80,6 +87,19 @@ function App() {
           </Routes>
         </Layout>
       </RoleProvider>
+=======
+          {/* Protected Admin Routes */}
+          <Route
+            path="/admin/*"
+            element={
+              <PrivateRoute requiredRole="master">
+                <AdminRoutes />
+              </PrivateRoute>
+            }
+          />
+        </Routes>
+      </Layout>
+>>>>>>> 4c537f1 (Everyt)
     </AuthProvider>
   );
 }

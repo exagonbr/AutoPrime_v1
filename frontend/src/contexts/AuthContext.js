@@ -21,6 +21,7 @@ export function AuthProvider({ children }) {
 
   const login = useCallback(async (username, password) => {
     try {
+<<<<<<< HEAD
       const response = await api.post('/api/auth/login', {
         username,
         password,
@@ -36,6 +37,13 @@ export function AuthProvider({ children }) {
       setUser(user);
 
       return { success: true, role: user.role };
+=======
+      const { data } = await api.post('/api/login', { username, password });
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('role', data.role);
+      setUser({ role: data.role });
+      return { success: true, role: data.role };
+>>>>>>> 4c537f1 (Everyt)
     } catch (error) {
       return {
         success: false,
